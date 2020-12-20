@@ -6,6 +6,7 @@
 	<artifactId>repeson4bchn</artifactId>
 	<version>0.1.0-alpha</version>
 	<name>repeson4bchn</name>
+	<description>A Java JSON-RPC client for Bitcoin Cash Node</description>
 	<url>https://github.com/murocash/repeson4bchn</url>
 
 	<licenses>
