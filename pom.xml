@@ -8,6 +8,13 @@
 	<name>repeson4bchn</name>
 	<description>A Java JSON-RPC client for Bitcoin Cash Node</description>
 	<url>https://github.com/murocash/repeson4bchn</url>
+	
+	<developers>
+		<developer>
+			<name>Muro.Cash</name>
+			<url>https://muro.cash</url>
+		</developer>
+	</developers>
 
 	<licenses>
 		<license>
