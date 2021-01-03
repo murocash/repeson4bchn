@@ -6,17 +6,17 @@
     }
 ],"properties": [
     {
-        "name": "uri",
+        "name": "bchn.uri",
         "type": "java.lang.String",
         "sourceType": "cash.muro.bch.rpc.client.BchnClientProperties"
     },
     {
-        "name": "username",
+        "name": "bchn.username",
         "type": "java.lang.String",
         "sourceType": "cash.muro.bch.rpc.client.BchnClientProperties"
     },
     {
-        "name": "password",
+        "name": "bchn.password",
         "type": "java.lang.String",
         "sourceType": "cash.muro.bch.rpc.client.BchnClientProperties"
     }
