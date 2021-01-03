@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>cash.muro</groupId>
 		<artifactId>muro-parent-pom</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>0.1.0-alpha2</version>
 	</parent>
 	<artifactId>repeson4bchn</artifactId>
 	<name>repeson4bchn</name>
