@@ -42,7 +42,11 @@ class BchnRpcClientIT {
 		InputStream inputStream = BchnRpcClientIT.class.getClassLoader().getResourceAsStream("it.properties");
 		Properties prop = new Properties();
 		prop.load(inputStream);
-		client = new BchnRpcClient.Builder(new URI(prop.getProperty("node"))).userName(prop.getProperty("username")).password(prop.getProperty("password"))
+		BchnClientProperties bchnProperties = new BchnClientProperties();
+		bchnProperties.setUri(prop.getProperty("node"));
+		bchnProperties.setUserName(prop.getProperty("username"));
+		bchnProperties.setPassword(prop.getProperty("password"));
+		client = new BchnRpcClient.Builder(bchnProperties)
 				.idGenerator(new DateTimeIdGenerator()).build();
 	}
 

@@ -1,0 +1,23 @@
+{"groups": [
+    {
+        "name": "bchn",
+        "type": "cash.muro.bch.rpc.client.BchnClientProperties",
+        "sourceType": "cash.muro.bch.rpc.client.BchnClientProperties"
+    }
+],"properties": [
+    {
+        "name": "bchn.uri",
+        "type": "java.lang.String",
+        "sourceType": "cash.muro.bch.rpc.client.BchnClientProperties"
+    },
+    {
+        "name": "bchn.username",
+        "type": "java.lang.String",
+        "sourceType": "cash.muro.bch.rpc.client.BchnClientProperties"
+    },
+    {
+        "name": "bchn.password",
+        "type": "java.lang.String",
+        "sourceType": "cash.muro.bch.rpc.client.BchnClientProperties"
+    }
+]}

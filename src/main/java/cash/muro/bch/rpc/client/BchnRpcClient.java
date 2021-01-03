@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
-import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpClient.Version;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
@@ -16,13 +13,12 @@ import com.emiperez.commons.idgenerators.IdGenerator;
 import com.emiperez.repeson.client.JsonRpcClient;
 import com.emiperez.repeson.client.JsonRpcException;
 import com.emiperez.repeson.client.JsonRpcResponse;
-import com.emiperez.repeson.client.JsonRpcVersion;
 import com.emiperez.repeson.transport.HttpTransport;
 import com.emiperez.repeson.transport.Transport;
 
 import cash.muro.bch.model.BchAddress;
-import cash.muro.bch.model.BchTransaction;
 import cash.muro.bch.model.BchReceived;
+import cash.muro.bch.model.BchTransaction;
 import cash.muro.bch.model.BchValidatedAddress;
 import cash.muro.bch.rpc.client.params.ListReceivedByAddressParams;
 import cash.muro.bch.rpc.client.params.ListTransactionsParams;
@@ -41,56 +37,15 @@ public class BchnRpcClient {
 	private JsonRpcClient jsonRpcClient;
 
 	public static class Builder {
-		private URI uri;
-		private String userName = "";
-		private String password = "";
-		private Version httpVersion = Version.HTTP_1_1;
-		private JsonRpcVersion jsonRpcVersion = JsonRpcVersion.v1_1;
+		private BchnClientProperties bchnProperties;
 		private IdGenerator<?> idGenerator;
-		private Duration timeout = Duration.ofSeconds(5);
-		private String contentType = "plain/text";
 
 		private Builder() {
 		}
 
-		public Builder(URI uri) {
+		public Builder(BchnClientProperties bchnProperties) {
 			this();
-			this.uri = uri;
-		}
-
-		public Builder uri(URI uri) {
-			this.uri = uri;
-			return this;
-		}
-
-		public Builder userName(String userName) {
-			this.userName = userName;
-			return this;
-		}
-
-		public Builder password(String password) {
-			this.password = password;
-			return this;
-		}
-
-		public Builder httpVersion(Version httpVersion) {
-			this.httpVersion = httpVersion;
-			return this;
-		}
-
-		public Builder timeout(Duration timeout) {
-			this.timeout = timeout;
-			return this;
-		}
-
-		public Builder contentType(String contentType) {
-			this.contentType = contentType;
-			return this;
-		}
-
-		public Builder jsonRpcVersion(JsonRpcVersion jsonRpcVersion) {
-			this.jsonRpcVersion = jsonRpcVersion;
-			return this;
+			this.bchnProperties = bchnProperties;
 		}
 
 		public Builder idGenerator(IdGenerator<?> idGenerator) {
@@ -103,17 +58,17 @@ public class BchnRpcClient {
 			HttpClient httpClient = HttpClient.newBuilder().authenticator(new Authenticator() {
 				@Override
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(userName, password.toCharArray());
+					return new PasswordAuthentication(bchnProperties.getUserName(), bchnProperties.getPassword().toCharArray());
 				}
-			}).version(this.httpVersion).connectTimeout(this.timeout).build();
+			}).version(bchnProperties.getHttpVersion()).connectTimeout(bchnProperties.getTimeout()).build();
 
-			Transport transport = HttpTransport.builder(httpClient).uri(uri).contentType(contentType).build();
+			Transport transport = HttpTransport.builder(httpClient).uri(bchnProperties.getUri()).contentType(bchnProperties.getContentType()).build();
 
 			if (idGenerator == null) {
 				idGenerator = new ConstantIdGenerator<String>("BCHN4j");
 			}
 
-			JsonRpcClient jsonRpcClient = JsonRpcClient.builder().transport(transport).version(jsonRpcVersion).idGenerator(idGenerator).build();
+			JsonRpcClient jsonRpcClient = JsonRpcClient.builder().transport(transport).version(bchnProperties.getJsonRpcVersion()).idGenerator(idGenerator).build();
 
 			BchnRpcClient client = new BchnRpcClient();
 			client.jsonRpcClient = jsonRpcClient;
